@@ -1,7 +1,29 @@
 <!DOCTYPE html>
 <html>
  <head>
-  <title>%</title>
+   <script type="text/javascript" src="lib/i18next.js"></script>
+      <script type="text/javascript" src="lib/i18nextXHRBackend.js"></script>
+      <script type="text/javascript">
+        var i18nextOptions = {
+                                // load:['en-US', 'fr', 'es'],
+                                preload:['en-US', 'fr', 'es'], // but preloading on client does not make much sense only load neeeded user language
+                                fallbackLng: 'en-US',
+                                ns:'My_Web_Server',
+                                defaultNS:'My_Web_Server',
+                                backend: {loadPath: '/language/static/{{lng}}/{{ns}}.json'},
+                                // getAsync:false --> no non-async loading in v2
+                              };
+        ii18next
+          .use(i18nextXHRBackend)
+          .use(i18nextBrowserLanguageDetector)
+          .init(i18nextOptions, function(){
+            var userLang = navigator.language || navigator.userLanguage;
+            console.log ("The language is: " + userLang);
+            console.log("Translated value = " + i18next.t("Hello"));
+          });
+      </script>
+
+  <title>Calculate Percentage</title>
   {% include head.html %}
     {% seo %}
 </head>
@@ -9,7 +31,7 @@
 <body>
 
 <h1>%</h1>
-<p>666</p>
+<p>Fast. Simple. Efficient</p>
 
 </body>
 </html>
